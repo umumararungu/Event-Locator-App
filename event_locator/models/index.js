@@ -6,7 +6,7 @@
 // const process = require('process');
 // const basename = path.basename(__filename);
 // const env = process.env.NODE_ENV || 'development';
-// const config = require(__dirname + '/../config/config.json')[env];
+// const config = require(__dirname + '/../config/database.js')[env];
 // const db = {};
 
 // let sequelize;
@@ -44,7 +44,7 @@
 
 
 const Sequelize = require('sequelize');
-const config = require('../config/database')[process.env.NODE_ENV || 'development'];
+const config = require('../config/database.js')[process.env.NODE_ENV || 'development'];
 
 const sequelize = new Sequelize(config);
 
@@ -52,7 +52,7 @@ const sequelize = new Sequelize(config);
 const models = {
   User: require('./User')(sequelize, Sequelize),
   Event: require('./Event')(sequelize, Sequelize),
-  Category: require('./Category')(sequelize, Sequelize),
+  // Category: require('./Category')(sequelize, Sequelize),
   // Add other models
 };
 

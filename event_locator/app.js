@@ -4,7 +4,7 @@ const i18next = require('i18next');
 const Backend = require('i18next-fs-backend');
 const i18nextMiddleware = require('i18next-http-middleware');
 const authMiddleware = require('./middlewares/auth');
-const errorHandler = require('./middlewares/errorHandler');
+// const errorHandler = require('./middlewares/errorHandler');
 
 // Initialize i18n
 i18next
@@ -25,12 +25,25 @@ app.use(express.json());
 app.use(i18nextMiddleware.handle(i18next));
 app.use(authMiddleware);
 
+// Swagger
+require('./config/swagger')(app);
+
 // Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/events', require('./routes/eventRoutes'));
-app.use('/api/users', require('./routes/userRoutes'));
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+
+
+app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/categories', categoryRoutes);
 
 // Error handler
-app.use(errorHandler);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something broke!' });
+});
 
 module.exports = app;

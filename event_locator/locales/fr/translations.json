@@ -1,0 +1,14 @@
+{
+    "auth": {
+      "email_exists": "L'e-mail existe déjà",
+      "invalid_credentials": "E-mail ou mot de passe invalide"
+    },
+    "event": {
+      "lat_lng_required": "La latitude et la longitude sont requises",
+      "not_found": "Événement introuvable"
+    },
+    "notifications": {
+      "upcoming_event": "Vous avez un événement à venir: {{title}}"
+    }
+  }
+  

@@ -7,41 +7,31 @@ const options = {
     info: {
       title: 'Event Locator API',
       version: '1.0.0',
-      description: 'API documentation for the Event Locator application',
-      contact: {
-        name: 'Your Name',
-        email: 'your.email@example.com'
-      }
+      description: 'API Documentation for Event Locator',
     },
     servers: [
-      {
-        url: 'http://localhost:3000/api',
-        description: 'Development server'
-      }
+      { url: 'http://localhost:3000/api', description: 'Development server' },
     ],
     components: {
       securitySchemes: {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
-          bearerFormat: 'JWT'
-        }
-      }
+          bearerFormat: 'JWT',
+        },
+      },
     },
-    security: [{
-      bearerAuth: []
-    }]
   },
-  apis: ['./routes/*.js', './controllers/*.js', './models/*.js'] // files containing annotations
+  apis: ['./routes/*.js'], // Path to your route files
 };
 
 const specs = swaggerJsdoc(options);
 
 module.exports = (app) => {
-  // Swagger UI
+  // Serve Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-  
-  // Docs in JSON format
+
+  // Serve Swagger JSON
   app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(specs);

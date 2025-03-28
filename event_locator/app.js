@@ -23,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(i18nextMiddleware.handle(i18next));
-app.use(authMiddleware);
+// app.use(authMiddleware);
 
 // Swagger
 require('./config/swagger')(app);
@@ -36,9 +36,9 @@ const eventRoutes = require('./routes/eventRoutes');
 
 
 app.use('/api/auth', authRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/categories', categoryRoutes);
+app.use('/api/events', authMiddleware, eventRoutes);
+app.use('/api/users', authMiddleware, userRoutes);
+app.use('/api/categories', authMiddleware, categoryRoutes);
 
 // Error handler
 app.use((err, req, res, next) => {

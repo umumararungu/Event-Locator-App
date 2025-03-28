@@ -1,0 +1,14 @@
+{
+    "auth": {
+      "email_exists": "Iyo imeli yarakoreshejwe",
+      "invalid_credentials": "Ijambo banga cyangwa imeli ntago ariyo "
+    },
+    "event": {
+      "lat_lng_required": "Birasabwa ko habaho longitude na Latitude",
+      "not_found": "ibirori cyangwa inama ntabihari "
+    },
+    "notifications": {
+      "upcoming_event": "ibirori cyangwa inama biri hafi: {{title}}"
+    }
+  }
+  

@@ -101,7 +101,7 @@ const updatePreferences = async (req, res) => {
 
     // Update language preference if provided
     if (preferred_language) {
-      const validLanguages = ['en', 'es', 'fr', 'de']; // Add your supported languages
+      const validLanguages = ['en', 'kin', 'fr']; // Add your supported languages
       if (!validLanguages.includes(preferred_language)) {
         return res.status(400).json({ message: 'Invalid language preference' });
       }

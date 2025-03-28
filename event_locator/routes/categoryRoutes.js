@@ -36,7 +36,7 @@ const authMiddleware = require('../middlewares/auth');
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   post:
  *     summary: Create a new category (Admin only)
  *     tags: [Categories]
@@ -126,7 +126,7 @@ router.post('/', authMiddleware, async (req, res) => {
 
 /**
  * @swagger
- * /api/categories/{id}:
+ * /categories/{id}:
  *   put:
  *     summary: Update a category (Admin only)
  *     tags: [Categories]
@@ -198,7 +198,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 
 /**
  * @swagger
- * /api/categories/{id}:
+ * /categories/{id}:
  *   delete:
  *     summary: Delete a category (Admin only)
  *     tags: [Categories]

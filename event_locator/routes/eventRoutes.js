@@ -41,15 +41,15 @@ const authMiddleware = require('../middlewares/auth');
  *           example: -74.0060
  *         address:
  *           type: string
- *           example: "123 Beach Ave, Miami, FL"
+ *           example: "123 Beach Ave, Kigali, FL"
  *         start_time:
  *           type: string
  *           format: date-time
- *           example: "2023-07-15T20:00:00Z"
+ *           example: "2030-07-15T20:00:00Z"
  *         end_time:
  *           type: string
  *           format: date-time
- *           example: "2023-07-16T02:00:00Z"
+ *           example: "2030-07-16T02:00:00Z"
  *         capacity:
  *           type: integer
  *           example: 100

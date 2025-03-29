@@ -40,6 +40,7 @@ const authMiddleware = require('../middlewares/auth');
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
+ *     security: []
  *     responses:
  *       200:
  *         description: List of all categories

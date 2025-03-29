@@ -6,15 +6,15 @@ module.exports = async (req, res, next) => {
   const publicPaths = [
     '/api/auth/register',
     '/api/auth/login',
-    '/api-docs' // Allow Swagger access
+    '/api-docs'
   ];
 
   if (publicPaths.includes(req.path)) {
-    return next(); // Skip authentication
+    return next(); 
   }
   
   try {
-    // 1. Get token from header (or cookies, if applicable)
+    // 1. Get token from header 
     const token = req.header('Authorization')?.replace('Bearer ', '') || req.cookies?.token;
 
     if (!token) {
@@ -26,10 +26,10 @@ module.exports = async (req, res, next) => {
 
     // 2. Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // 3. Find user (optimized query to exclude sensitive data)
-    const user = await User.findByPk(decoded.userId, {
-      attributes: { exclude: ['password_hash', 'resetToken'] } // Never expose sensitive fields
+    req.userId = decoded.userId;
+    // 3. Find user 
+    const user = await User.findByPk(req.userId, {
+      attributes: { exclude: ['password_hash', 'resetToken'] }
     });
 
     if (!user) {
@@ -40,7 +40,7 @@ module.exports = async (req, res, next) => {
     }
 
     // 4. Attach user to request
-    req.user = user; // Attach full user object (sanitized) instead of just ID
+    req.user = user; 
     next();
 
   } catch (error) {

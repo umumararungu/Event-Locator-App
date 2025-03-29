@@ -62,7 +62,7 @@ const getAllEvents = async (req, res) => {
       where,
       include: [
         ...include,
-        { model: User, as: 'creator', attributes: ['id', 'username'] }
+        { model: User, as: 'creator', attributes: ['username'] }
       ],
       order: [['start_time', 'ASC']]
     });

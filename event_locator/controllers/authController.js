@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // const { generateToken } = require('../utils/jwt');
-const { User } = require('../models');
+const { User,Category } = require('../models');
 
 const register = async (req, res) => {
   try {
@@ -80,19 +80,56 @@ const login = async (req, res) => {
 
 const getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.userId, {
-      attributes: { exclude: ['password_hash'] },
-      include: ['preferredCategories']
-    });
-    
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    // 1. Verify the user ID exists and is valid
+    if (!req.userId || isNaN(req.userId)) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid or missing User ID in request',
+      });
     }
 
-    res.json(user);
+    // 2. Find user with associations
+    const user = await User.findByPk(req.userId, {
+      attributes: { exclude: ['password_hash', 'resetToken'] },
+      include: [
+        {
+          model: Category,
+          as: 'preferredCategories',
+          through: { attributes: [] },
+          attributes: ['id', 'name_key'],
+        },
+      ],
+    });
+
+    // 3. Handle user not found
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found with the provided ID',
+      });
+    }
+
+    // 4. Return successful response
+    res.json({
+      success: true,
+      user,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error fetching current user:', { userId: req.userId, error });
+
+    // Specific error handling
+    if (error.name === 'SequelizeDatabaseError') {
+      return res.status(500).json({
+        success: false,
+        message: 'Database error occurred while fetching user data',
+      });
+    }
+
+    // Generic fallback
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error while fetching user dataaaaa',
+    });
   }
 };
 

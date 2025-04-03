@@ -100,7 +100,7 @@ JWT_SECRET=your_jwt_secret_key
 | /events/{id}/ratings | POST | Add a rating to an event |
 | /events/{id}/ratings | GET | Get ratings for an event |
 | /events/{id}/favorite | POST | Add event to favorites |
-| /events/{id}/favorite | DELETE | Remov |e event from favorites |
+| /events/{id}/favorite | DELETE | Remove event from favorites |
 | /events |	GET	| Get all events |
 
 5. **Database Schema**

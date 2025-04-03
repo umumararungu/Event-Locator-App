@@ -1,10 +1,10 @@
-Event Management System - Project Documentation
+# Event Management System - Project Documentation
 
-1. Overview
+1. **Overview**
 
 This project is an Event Management System built with Node.js, Express, Sequelize (PostgreSQL), and JWT-based authentication. It allows users to create, browse, and manage events with categories, ratings, and user interactions.
 
-2. Technical Stack
+2. **Technical Stack**
 
    Component	                 Technology
    ----------                  -----------
@@ -14,10 +14,10 @@ This project is an Event Management System built with Node.js, Express, Sequeliz
    API Docs	                    Swagger/OpenAPI
    Error Handling	            Custom middleware
 
-3. Project Setup
+3. **Project Setup**
 
-Prerequisites
--------------
+### Prerequisites
+
 
 - Node.js (v16+)
 
@@ -25,24 +25,26 @@ Prerequisites
 
 - npm or yarn
 
-Installation
+### Installation
 
 Clone the repository
 
-# bash
+``` bash
 
 - git clone https://github.com/your-repo/event-management-system.git
 - cd event-management-system
-Install dependencies
+```
 
-# bash
+### Install dependencies
+
+``` bash
 
 - npm install
 # or
 - yarn install
+```
 
-
-Set up environment variables (.env file)
+### Set up environment variables (.env file)
 
 env
 
@@ -54,31 +56,31 @@ env
 - JWT_SECRET=your_jwt_secret_key
 - Database setup
 
-# bash
+``` bash
 
 - npx sequelize-cli db:create    # Creates the database
 - npx sequelize-cli db:migrate   # Runs migrations
 - npx sequelize-cli db:seed:all  # Optional: Seeds sample data
+```
+
+### Start the server
 
 
-Start the server
-
-# bash
+``` bash
 
 - npm run dev  # Development (with nodemon)
 # or
 - npm start    # Production
+```
 
+4. **API Endpoints**
 
-4. API Endpoints
+### Authentication
 
-Authentication
----------------
-
-Endpoint	        Method	      Description
---------           --------       ------------
-/auth/register	   POST	          User registration
-/auth/login	       POST	          User login (returns JWT token)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| /auth/register | POST | User registration |
+| /auth/login | POST | User login (returns JWT token) |
 
 Events
 -------

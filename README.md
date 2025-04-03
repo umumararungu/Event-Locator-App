@@ -6,13 +6,13 @@ This project is an Event Management System built with Node.js, Express, Sequeliz
 
 2. **Technical Stack**
 
-   Component	                 Technology
-   ----------                  -----------
-   Backend	                    Node.js, Express
-   Database	                    PostgreSQL (Sequelize ORM)
-   Authentication	            JWT (JSON Web Tokens)
-   API Docs	                    Swagger/OpenAPI
-   Error Handling	            Custom middleware
+   | Component | Technology | 
+   |---------|-----------|
+   | Backend | Node.js, Express |
+   | Database |	PostgreSQL (Sequelize ORM) |
+   | Authentication | JWT (JSON Web Tokens) |
+   | API Docs |	Swagger/OpenAPI |
+   | Error Handling	| Custom middleware |
 
 3. **Project Setup**
 
@@ -46,15 +46,18 @@ Clone the repository
 
 ### Set up environment variables (.env file)
 
-env
+#### .env
 
-- DB_NAME=your_db_name
-- DB_USER=your_db_user
-- DB_PASSWORD=your_db_password
-- DB_HOST=localhost
-- DB_PORT=5432
-- JWT_SECRET=your_jwt_secret_key
-- Database setup
+```bash
+
+DB_NAME=your_db_name
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+DB_PORT=5432
+JWT_SECRET=your_jwt_secret_key
+```
+### Database setup
 
 ``` bash
 
@@ -82,13 +85,13 @@ env
 | /auth/register | POST | User registration |
 | /auth/login | POST | User login (returns JWT token) |
 
-Events
--------
+### Events
 
-Endpoint	    Method	     Description
---------       --------     -------------
-- /events	        GET	        Get all events (public)
-- /events/:id	    GET	        Get event by ID
-- /events	        POST	    Create new event (requires auth)
-- /events/:id	    PUT	        Update event (requires auth)
-- /events/:id	    DELETE	    Delete event (requires auth)
+
+| Endpoint | Method | Description |
+|---------|--------|-------------|
+| /events |	GET	| Get all events (public) |
+| /events/:id |	GET	| Get event by ID |
+| /events |	POST | Create new event (requires auth) |
+| /events/:id |	PUT	| Update event (requires auth) |
+| /events/:id |	DELETE | Delete event (requires auth) |

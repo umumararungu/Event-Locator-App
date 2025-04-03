@@ -94,7 +94,7 @@ const getNearbyEvents = async (req, res) => {
         ]
       },
       include: [
-        { model: Category, through: { attributes: [] } },
+        { model: Category, as:'categories', through: { attributes: [] } },
         { 
           model: User,
           as: 'creator',

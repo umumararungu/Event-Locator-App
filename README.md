@@ -107,14 +107,12 @@ JWT_SECRET=your_jwt_secret_key
 
 ### Tables
 
-- Users (id, username, email, password, createdAt, updatedAt)
-- 
-- Events (id, title_key, description_key, creator_id, start_time, end_time, etc.)
-- 
-- Categories (id, name, description)
-- 
-- EventCategories (Join table for Events ↔ Categories)
-- 
+- Users (id, username, email, password_hash, preferred_language, created_at, updated_at)
+
+- Events (id, title_key, description_key, longitude, latitude, address, creator_id, start_time, end_time, capacity, price, created_at, updated_at)
+
+- Categories (id, name_key, icon, created_at, updated_at)
+
 - EventRatings (id, event_id, user_id, rating, comment)
 
 ### Relationships

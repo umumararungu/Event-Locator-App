@@ -124,33 +124,16 @@ router.post('/', authMiddleware, eventController.createEvent);
  *   get:
  *     summary: Get all events
  *     tags: [Events]
- *     parameters:
- *       - in: query
- *         name: categories
- *         schema:
- *           type: string
- *         description: Comma-separated category IDs to filter by
- *       - in: query
- *         name: start_date
- *         schema:
- *           type: string
- *           format: date-time
- *         description: Filter events starting after this date
- *       - in: query
- *         name: end_date
- *         schema:
- *           type: string
- *           format: date-time
- *         description: Filter events ending before this date
  *     responses:
  *       200:
- *         description: List of events
+ *         description: List of all events
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Event'
+ *
  *       500:
  *         description: Server error
  */
@@ -162,6 +145,8 @@ router.get('/', eventController.getAllEvents);
  *   get:
  *     summary: Find events near a location
  *     tags: [Events]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: lat
@@ -210,6 +195,8 @@ router.get('/nearby', eventController.getNearbyEvents);
  *   get:
  *     summary: Get event by ID
  *     tags: [Events]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -355,6 +342,8 @@ router.post('/:id/ratings', authMiddleware, eventController.addRating);
  *   get:
  *     summary: Get ratings for an event
  *     tags: [Events]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

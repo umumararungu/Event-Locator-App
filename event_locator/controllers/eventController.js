@@ -41,28 +41,19 @@ const createEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
   try {
-    const { categories, start_date, end_date } = req.query;
-    
-    const where = {};
-    const include = [{
-      model: Category,
-      through: { attributes: [] },
-      where: categories ? { id: { [Op.in]: categories.split(',') } } : {},
-      required: !!categories
-    }];
-
-    if (start_date) {
-      where.start_time = { [Op.gte]: new Date(start_date) };
-    }
-    if (end_date) {
-      where.end_time = { [Op.lte]: new Date(end_date) };
-    }
-
     const events = await Event.findAll({
-      where,
       include: [
-        ...include,
-        { model: User, as: 'creator', attributes: ['username'] }
+        ...(include || []), // Safely spreads include if it exists
+        { 
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] } 
+        },
+        { 
+          model: User, 
+          as: 'creator', 
+          attributes: ['username'] 
+        }
       ],
       order: [['start_time', 'ASC']]
     });
@@ -129,13 +120,34 @@ const getNearbyEvents = async (req, res) => {
 
 const getEventById = async (req, res) => {
   try {
-    const event = await Event.findByPk(req.params.id, {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: 'Invalid ID format' });
+    }
+
+    const event = await Event.findByPk(id, {
       include: [
-        { model: Category, through: { attributes: [] } },
-        { model: User, as: 'creator', attributes: ['id', 'username'] },
+        { 
+          model: Category, 
+          as: 'categories', // Match the alias from your association
+          through: { 
+            attributes: [] // Hide join table attributes
+          } 
+        },
+        { 
+          model: User, 
+          as: 'creator', 
+          attributes: ['id', 'username'] 
+        },
         { 
           model: EventRating,
-          include: [{ model: User, attributes: ['id', 'username'] }]
+          as: 'ratings', // Match the alias from your association
+          include: [
+            { 
+              model: User, 
+              attributes: ['id', 'username'] 
+            }
+          ]
         }
       ]
     });
@@ -146,8 +158,11 @@ const getEventById = async (req, res) => {
 
     res.json(event);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Detailed error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 

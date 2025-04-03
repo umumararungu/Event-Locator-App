@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Category } = require('../models');
 const authMiddleware = require('../middlewares/auth');
+const all_cats = require('../controllers/categoryController')
 
 /**
  * @swagger
@@ -54,15 +55,7 @@ const authMiddleware = require('../middlewares/auth');
  *         description: Server error
  */
 router.get('/', async (req, res) => {
-  try {
-    const categories = await Category.findAll({
-      order: [['name_key', 'ASC']]
-    });
-    res.json(categories);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    res.status(500).json({ message: 'Failed to fetch categories' });
-  }
+console.log(all_cats);
 });
 
 /**

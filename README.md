@@ -84,14 +84,73 @@ JWT_SECRET=your_jwt_secret_key
 |----------|--------|-------------|
 | /auth/register | POST | User registration |
 | /auth/login | POST | User login (returns JWT token) |
+| /auth/me | GET | Get user information |
 
 ### Events
 
 
 | Endpoint | Method | Description |
 |---------|--------|-------------|
-| /events |	GET	| Get all events (public) |
-| /events/:id |	GET	| Get event by ID |
 | /events |	POST | Create new event (requires auth) |
+| /events/:id |	GET	| Get event by ID |
 | /events/:id |	PUT	| Update event (requires auth) |
+| /events/:id |	GET	| Get event by id (requires auth) |
 | /events/:id |	DELETE | Delete event (requires auth) |
+| /events/nearby | GET | Find events near a location |
+| /events/{id}/ratings | POST | Add a rating to an event |
+| /events/{id}/ratings | GET | Get ratings for an event |
+| /events/{id}/favorite | POST | Add event to favorites |
+| /events/{id}/favorite | DELETE | Remov |e event from favorites |
+| /events |	GET	| Get all events |
+
+5. **Database Schema**
+
+### Tables
+
+- Users (id, username, email, password, createdAt, updatedAt)
+- 
+- Events (id, title_key, description_key, creator_id, start_time, end_time, etc.)
+- 
+- Categories (id, name, description)
+- 
+- EventCategories (Join table for Events ↔ Categories)
+- 
+- EventRatings (id, event_id, user_id, rating, comment)
+
+### Relationships
+
+- User → Events: One-to-Many (User.hasMany(Event))
+- 
+- Event → Categories: Many-to-Many (Event.belongsToMany(Category))
+- 
+- Event → Ratings: One-to-Many (Event.hasMany(EventRating))
+
+6. **Authentication Flow**
+
+- User registers (POST /auth/register)
+
+- User logs in (POST /auth/login) → Returns JWT token
+
+- Token is sent in headers for protected routes:
+
+#### http
+
+Authorization: Bearer <JWT_TOKEN>
+
+7. **Error Handling**
+
+|400 | Bad Request | Invalid input |
+|401 | Unauthorized | Missing/invalid token |
+|403 | Forbidden | User lacks permissions |
+|404 | Not Found | Resource doesn’t exist |
+|500 | Server Error | Internal server issue |
+
+8. **Testing the API**
+
+#### Using Swagger UI
+
+- Visit http://localhost:3000/api-docs
+
+- Click "Authorize" and enter your JWT token.
+
+- Test endpoints interactively.

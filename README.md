@@ -85,8 +85,8 @@ Events
 
 Endpoint	    Method	     Description
 --------       --------     -------------
-/events	        GET	        Get all events (public)
-/events/:id	    GET	        Get event by ID
-/events	        POST	    Create new event (requires auth)
-/events/:id	    PUT	        Update event (requires auth)
-/events/:id	    DELETE	    Delete event (requires auth)
+- /events	        GET	        Get all events (public)
+- /events/:id	    GET	        Get event by ID
+- /events	        POST	    Create new event (requires auth)
+- /events/:id	    PUT	        Update event (requires auth)
+- /events/:id	    DELETE	    Delete event (requires auth)
